@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+* {
+  font-family: "ProvidenceSans", sans-serif !important;
+}
+
+@font-face {
+  font-family: "ProvidenceSans";
+  src: url("/src/assets/fonts/ProvidenceSans-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
