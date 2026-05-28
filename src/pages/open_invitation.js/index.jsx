@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import useTypingText from "../../Hooks/useTypingText.js";
 
-import useSound from "../../Hooks/index.js";
+import useSound from "../../Hooks/useSound.js";
 import Pernik2 from "../../assets/Images/pernik2.png";
 import Pernik3 from "../../assets/Images/pernik3.png";
 import Pernik4 from "../../assets/Images/pernik4.png";
@@ -15,24 +15,8 @@ function Index() {
   const { play } = useSound();
 
   const title = "THESE KIDS ARE GETTING MARRIED";
-  const [displayed, setDisplayed] = useState("");
 
-  useEffect(() => {
-    let i = 0;
-
-    const interval = setInterval(() => {
-      setDisplayed(title.slice(0, i));
-      i++;
-
-      if (i > title.length) {
-        clearInterval(interval);
-      }
-    }, 100);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const isDone = displayed.length === title.length;
+  const { displayed, isDone } = useTypingText(title, 100);
 
   const goToHome = async () => {
     await play();

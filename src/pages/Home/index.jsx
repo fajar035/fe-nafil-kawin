@@ -1,9 +1,16 @@
-import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+// import useTypingText from "../../Hooks/useTypingText.js";
+import useAnimatedText from "../../Hooks/useAnimatedText.js";
+import { motion } from "framer-motion";
 
 function Index() {
   const navigate = useNavigate();
+  const animatedText = useAnimatedText("SAVE THE DATE!", 80);
+
+  //   const title = "SAVE THE\nDATE!";
+
+  //   const { displayed, isDone } = useTypingText(title, 100);
 
   useEffect(() => {
     const handleBeforeUnload = () => {
@@ -17,36 +24,53 @@ function Index() {
     };
   }, []);
 
-  useEffect(() => {
-    const isRefreshing = sessionStorage.getItem("isRefreshing");
+  //   useEffect(() => {
+  //     const isRefreshing = sessionStorage.getItem("isRefreshing");
 
-    if (isRefreshing) {
-      sessionStorage.removeItem("isRefreshing");
+  //     if (isRefreshing) {
+  //       sessionStorage.removeItem("isRefreshing");
 
-      navigate("/open-invitation", {
-        replace: true,
-      });
-    }
-  }, []);
+  //       navigate("/open-invitation", {
+  //         replace: true,
+  //       });
+  //     }
+  //   }, []);
 
   return (
-    <div className="container mx-auto text-white text-2xl">
-      <p className="mb-4">Halaman Home</p>
-      <p>
-        Selamat datang di halaman Home! Di sini Anda dapat menemukan informasi
-        tentang acara pernikahan kami, termasuk tanggal, lokasi, dan detail
-        lainnya. Kami sangat senang untuk berbagi momen spesial ini dengan Anda.
-        Jangan ragu untuk menghubungi kami jika Anda memiliki pertanyaan atau
-        ingin memberikan ucapan selamat. Terima kasih telah menjadi bagian dari
-        perjalanan kami!
-      </p>
-
-      <Link
-        to="/open-invitation"
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-      >
-        Kembali ke Open Invitation
-      </Link>
+    <div className="min-h-screen bg-black flex items-center justify-center">
+      <div className="w-full max-w-[420px] h-[100vh] bg-white shadow-2xl overflow-hidden">
+        <div className="h-full bg-white p-4">
+          <div className="w-full px-30 flex items-center justify-center">
+            <h1 className="text-[50px] font-bold text-[#9e0e00] text-center">
+              {animatedText.map((item, index) => (
+                <motion.span
+                  key={index}
+                  initial={{
+                    opacity: 0,
+                    y: 30,
+                    filter: "blur(8px)",
+                  }}
+                  animate={
+                    item.isVisible
+                      ? {
+                          opacity: 1,
+                          y: 0,
+                          filter: "blur(0px)",
+                        }
+                      : {}
+                  }
+                  transition={{
+                    duration: 0.5,
+                  }}
+                  className="inline-block whitespace-pre"
+                >
+                  {item.char}
+                </motion.span>
+              ))}
+            </h1>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
