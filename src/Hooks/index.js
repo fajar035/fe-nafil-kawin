@@ -3,18 +3,30 @@ import bgMusic from "../assets/Audio/audio.mp3";
 
 export default function useSound() {
   const audioRef = useRef(new Audio(bgMusic));
+  const isPlayingRef = useRef(false);
 
   const play = async () => {
     try {
-      audioRef.current.loop = true;
-      await audioRef.current.play();
+      const audio = audioRef.current;
+
+      if (isPlayingRef.current) return; // 🚫 cegah double play
+
+      audio.loop = true;
+      audio.currentTime = 0;
+
+      await audio.play();
+      isPlayingRef.current = true;
     } catch (e) {
       console.log("blocked:", e);
     }
   };
 
   const stop = () => {
-    audioRef.current.pause();
+    const audio = audioRef.current;
+
+    audio.pause();
+    audio.currentTime = 0;
+    isPlayingRef.current = false;
   };
 
   return { play, stop };

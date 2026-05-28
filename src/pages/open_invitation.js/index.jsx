@@ -35,8 +35,8 @@ function Index() {
   const isDone = displayed.length === title.length;
 
   const goToHome = async () => {
-    navigate("/home");
     await play();
+    navigate("/home");
   };
 
   return (
