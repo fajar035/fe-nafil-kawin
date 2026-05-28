@@ -1,6 +1,34 @@
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Index() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      sessionStorage.setItem("isRefreshing", "true");
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
+
+  useEffect(() => {
+    const isRefreshing = sessionStorage.getItem("isRefreshing");
+
+    if (isRefreshing) {
+      sessionStorage.removeItem("isRefreshing");
+
+      navigate("/open-invitation", {
+        replace: true,
+      });
+    }
+  }, []);
+
   return (
     <div className="container mx-auto text-white text-2xl">
       <p className="mb-4">Halaman Home</p>
