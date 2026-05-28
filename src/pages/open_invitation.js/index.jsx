@@ -80,7 +80,7 @@ function Index() {
               />
 
               {/* NAFIL (BELAKANG) */}
-              <div className="absolute top-[0px] left-15.5 w-30 h-25 overflow-hidden z-0">
+              <div className="absolute top-[-15px] left-[52.9px] w-35 h-30 overflow-hidden z-0">
                 <img
                   src={nafil}
                   alt="nafil"
@@ -89,7 +89,7 @@ function Index() {
               </div>
 
               {/* AYU (BELAKANG JUGA) */}
-              <div className="absolute top-[-11px] right-24.5 w-30 h-28 overflow-hidden z-0">
+              <div className="absolute top-[-17px] right-[87px] w-35 h-30 overflow-hidden z-0">
                 <img
                   src={ayu}
                   alt="ayu"
