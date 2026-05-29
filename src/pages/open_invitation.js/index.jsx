@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import useTypingText from "../../Hooks/useTypingText.js";
+import { textName, title } from "../../utils/constants.js";
 
 import useSound from "../../Hooks/useSound.js";
 import Pernik2 from "../../assets/Images/pernik2.png";
@@ -14,9 +15,14 @@ function Index() {
   const navigate = useNavigate();
   const { play } = useSound();
 
-  const title = "THESE KIDS ARE GETTING MARRIED";
-
-  const { displayed, isDone } = useTypingText(title, 100);
+  const { displayed: displayTitle, isDone: isTitleDone } = useTypingText(
+    title,
+    100,
+  );
+  const { displayed: displayTextName, isDone: isTextNameDone } = useTypingText(
+    textName,
+    200,
+  );
 
   const goToHome = async () => {
     await play();
@@ -24,11 +30,11 @@ function Index() {
   };
 
   return (
-    <div className="min-h-screen bg-black flex items-center justify-center">
+    <div className="flex items-center justify-center min-h-screen bg-black">
       <div className="w-full max-w-[420px] h-[100vh] bg-white shadow-2xl overflow-hidden">
-        <div className="h-full bg-white flex flex-col items-center justify-center gap-6 p-4">
+        <div className="flex flex-col items-center justify-center h-full gap-6 p-4 bg-white">
           {/* SECTION */}
-          <div className="w-full mb-4 relative">
+          <div className="relative w-full mb-4">
             <img
               src={Pernik2}
               alt="pernik2"
@@ -48,19 +54,19 @@ function Index() {
 
               {/* typing overlay */}
               <span className="absolute top-0 left-0 w-full text-center">
-                {displayed}
-                {!isDone && <span className="animate-pulse">|</span>}
+                {displayTitle}
+                {!isTitleDone && <span className="animate-pulse">|</span>}
               </span>
             </h1>
 
-            <img src={Pernik5} alt="pernik5" className="w-30 mx-auto" />
+            <img src={Pernik5} alt="pernik5" className="mx-auto w-30" />
 
             <div className="relative w-full">
               {/* FOTO UTAMA (PALING DEPAN) */}
               <img
                 src={Pernik4}
                 alt="pernik4"
-                className="w-70 mx-auto relative z-20"
+                className="relative z-20 mx-auto w-70"
               />
 
               {/* NAFIL (BELAKANG) */}
@@ -68,7 +74,7 @@ function Index() {
                 <img
                   src={nafil}
                   alt="nafil"
-                  className="w-full h-full object-cover"
+                  className="object-cover w-full h-full"
                 />
               </div>
 
@@ -77,7 +83,7 @@ function Index() {
                 <img
                   src={ayu}
                   alt="ayu"
-                  className="w-full h-full object-cover"
+                  className="object-cover w-full h-full"
                 />
               </div>
 
@@ -85,27 +91,28 @@ function Index() {
               <img
                 src={Pernik1}
                 alt="pernik1"
-                className="absolute top-0 left-7 w-10 z-10 animate__animated animate__pulse animate__infinite"
+                className="absolute top-0 z-10 w-10 left-7 animate__animated animate__pulse animate__infinite"
               />
 
               <img
                 src={Pernik1}
                 alt="pernik1"
-                className="absolute top-30 right-10 w-10 z-10 animate__animated animate__wobble animate__infinite"
+                className="absolute z-10 w-10 top-30 right-10 animate__animated animate__wobble animate__infinite"
               />
 
               <img
                 src={Pernik1}
                 alt="pernik1"
-                className="absolute bottom-0 left-7 w-10 z-10 animate__animated animate__rubberBand animate__infinite"
+                className="absolute bottom-0 z-10 w-10 left-7 animate__animated animate__rubberBand animate__infinite"
               />
             </div>
 
-            <p className="text-center text-black font-bold text-2xl mt-4">
-              Ayu & Nafil
+            <p className="mt-4 text-2xl font-bold text-center text-black">
+              {displayTextName}
+              {!isTextNameDone && <span className="animate-pulse">|</span>}
             </p>
 
-            <p className="text-center text-black font-bold text-2xl">6.6.26</p>
+            <p className="text-2xl font-bold text-center text-black">6.6.26</p>
           </div>
 
           <button
