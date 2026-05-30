@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export function Countdown({ targetDate }) {
   const calculateTimeLeft = () => {
@@ -22,107 +23,72 @@ export function Countdown({ targetDate }) {
   };
 
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+  const [tick, setTick] = useState(0);
 
   useEffect(() => {
     const timer = setInterval(() => {
       setTimeLeft(calculateTimeLeft());
+      setTick((t) => t + 1); // trigger framer animation
     }, 1000);
 
     return () => clearInterval(timer);
   }, []);
 
+  const itemClass = "text-center";
+
+  const numberClass =
+    "text-base font-bold leading-none tracking-wider sm:text-lg md:text-xl text-[#9e0e00]";
+
+  const labelClass = "text-[8px] sm:text-[10px] uppercase text-[#9e0e00]";
+
   return (
-    <div className="mt-5  w-fit">
-      <div className="grid grid-cols-4 gap-3 text-[#9e0e00]">
-        <div className="text-center">
-          <h3 className="text-xl font-bold">
+    <div className="flex justify-center w-full mt-5">
+      <div className="grid grid-cols-4 gap-0.5 sm:gap-1 md:gap-2 w-full max-w-[320px] sm:max-w-[380px] md:max-w-[420px] text-[#9e0e00]">
+        {/* DAYS */}
+        <div className={itemClass}>
+          <h3 className={numberClass}>
             {String(timeLeft.days).padStart(2, "0")}
           </h3>
-          <p className="text-xs uppercase">Days</p>
+          <p className={labelClass}>Days</p>
         </div>
 
-        <div className="text-center">
-          <h3 className="text-xl font-bold">
+        {/* HOURS */}
+        <div className={itemClass}>
+          <h3 className={numberClass}>
             {String(timeLeft.hours).padStart(2, "0")}
           </h3>
-          <p className="text-xs uppercase">Hours</p>
+          <p className={labelClass}>Hours</p>
         </div>
 
-        <div className="text-center">
-          <h3 className="text-xl font-bold">
+        {/* MINUTES */}
+        <div className={itemClass}>
+          <h3 className={numberClass}>
             {String(timeLeft.minutes).padStart(2, "0")}
           </h3>
-          <p className="text-xs uppercase">Minutes</p>
+          <p className={labelClass}>Minutes</p>
         </div>
 
-        <div className="text-center">
-          <h3 className="text-xl font-bold">
-            {String(timeLeft.seconds).padStart(2, "0")}
-          </h3>
-          <p className="text-xs uppercase">Seconds</p>
+        {/* SECONDS (ANIMATED) */}
+        <div className={itemClass}>
+          <AnimatePresence mode="wait">
+            <motion.h3
+              key={tick}
+              className={numberClass}
+              initial={{ opacity: 0, y: -10, scale: 0.8 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 10, scale: 1.2 }}
+              transition={{
+                duration: 0.35,
+                ease: "easeOut",
+              }}
+            >
+              {String(timeLeft.seconds).padStart(2, "0")}
+            </motion.h3>
+          </AnimatePresence>
+
+          <p className={labelClass}>Seconds</p>
         </div>
       </div>
     </div>
-  );
-}
-
-export default function LastSection() {
-  return (
-    <section className="px-10 py-10 bg-red-100 ">
-      <div className="relative grid items-center grid-cols-2 gap-10">
-        {/* LEFT */}
-        <div
-          className="text-[#9e0e00]"
-          style={{ fontFamily: "'Patrick Hand', cursive" }}
-        >
-          <p className="mb-8 text-3xl font-bold leading-none">
-            OUR BIG DAY
-            <br />
-            AWAITS
-          </p>
-
-          {/* <Countdown targetDate="2026-06-06T08:00:00" /> */}
-
-          <h3 className="mt-12 text-3xl font-bold leading-tight">
-            SAVE
-            <br />
-            THE
-            <br />
-            DATE!
-          </h3>
-
-          <h3 className="mt-12 text-3xl font-bold">
-            SEE YOU
-            <br />
-            ON 6.6.26
-          </h3>
-
-          <p className="mt-8 text-3xl ">Ayu & Nafil</p>
-        </div>
-
-        {/* RIGHT */}
-        <div className="relative bg-blue-400">
-          <div className="bg-[#9e0e00] p-2 rounded-xl absolute rotate-[-8deg] w-[200px] -top-30 -right-20">
-            <img
-              src="/photo1.jpg"
-              alt=""
-              className="w-full aspect-[5/6] object-cover rounded-md bg-white p-2"
-            />
-
-            <img
-              src="/photo2.jpg"
-              alt=""
-              className="w-full aspect-[5/6] object-cover rounded-md bg-white p-2 mt-2"
-            />
-
-            <img
-              src="/photo3.jpg"
-              alt=""
-              className="w-full aspect-[5/6] object-cover rounded-md bg-white p-2 mt-2"
-            />
-          </div>
-        </div>
-      </div>
-    </section>
   );
 }
