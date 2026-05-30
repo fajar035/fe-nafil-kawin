@@ -100,21 +100,21 @@ function Index() {
               <img
                 src={Pernik1}
                 alt="pernik1"
-                className="absolute z-10 w-6 top-2 left-2 sm:w-8 animate__animated animate__pulse animate__infinite"
+                className="absolute z-10 w-8 -left-9 top-5 sm:w-10 sm:top-10 animate__animated animate__heartBeat animate__infinite"
               />
 
               {/* DECORATION 2 */}
               <img
                 src={Pernik1}
                 alt="pernik1"
-                className="absolute z-10 w-6 right-3 top-24 sm:w-8 animate__animated animate__wobble animate__infinite"
+                className="absolute z-10 w-8 -right-3 top-24 sm:w-10 animate__animated animate__wobble animate__infinite"
               />
 
               {/* DECORATION 3 */}
               <img
                 src={Pernik1}
                 alt="pernik1"
-                className="absolute z-10 w-6 left-2 bottom-2 sm:w-8 animate__animated animate__rubberBand animate__infinite"
+                className="absolute z-10 w-8 -left-5 bottom-2 sm:w-10 sm:-left-8 animate__animated animate__rubberBand animate__infinite"
               />
             </div>
 
