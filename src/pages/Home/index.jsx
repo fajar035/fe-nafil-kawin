@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useAnimatedText from "../../Hooks/useAnimatedText.js";
 import { motion } from "framer-motion";
 import TextAnimated from "../../components/TextAnimated.jsx";
@@ -38,10 +38,29 @@ import CommentList from "../../components/CommentList.jsx";
 import BankCard from "../../components/BankCard.jsx";
 import Timeline from "../../components/Timeline.jsx";
 import { Countdown } from "../../components/LastSection.jsx";
+import { getAllComments } from "../../service/index.js";
 
 function Index() {
   const navigate = useNavigate();
   const animatedTextSaveDate = useAnimatedText(textSaveDate, 80);
+
+  const [data, setData] = useState([]);
+  const [successAdd, setSuccessAdd] = useState(false);
+
+  const getComment = async () => {
+    try {
+      const response = await getAllComments();
+      setData(response.data);
+      setSuccessAdd(false);
+    } catch (error) {
+      console.error("Error fetching comments:", error);
+      setSuccessAdd(false);
+    }
+  };
+
+  useEffect(() => {
+    getComment();
+  }, [successAdd]);
 
   useEffect(() => {
     const handleBeforeUnload = () => {
@@ -55,17 +74,17 @@ function Index() {
     };
   }, []);
 
-  //   useEffect(() => {
-  //     const isRefreshing = sessionStorage.getItem("isRefreshing");
+  useEffect(() => {
+    const isRefreshing = sessionStorage.getItem("isRefreshing");
 
-  //     if (isRefreshing) {
-  //       sessionStorage.removeItem("isRefreshing");
+    if (isRefreshing) {
+      sessionStorage.removeItem("isRefreshing");
 
-  //       navigate("/open-invitation", {
-  //         replace: true,
-  //       });
-  //     }
-  //   }, []);
+      navigate("/open-invitation", {
+        replace: true,
+      });
+    }
+  }, []);
 
   return (
     <div className="w-full min-h-screen bg-[#f8f8f8]">
@@ -353,9 +372,9 @@ function Index() {
             />
           </p>
 
-          <Form />
+          <Form data={data.pagination} setSuccessAdd={setSuccessAdd} />
 
-          <CommentList />
+          <CommentList data={data.data} />
 
           <p className="text-2xl font-bold text-[#9e0e00] text-center">
             <TextAnimated text={"Weeding"} speed={0.05} />

@@ -1,24 +1,51 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { toast } from "react-hot-toast";
 import useCountUpInView from "../Hooks/useCountUpInView.js";
+import { addComment } from "../service/index.js";
 
-function Form() {
+function Form({ data, setSuccessAdd }) {
   const [form, setForm] = useState({
     name: "",
-    message: "",
-    attendance: "",
+    comment: "",
+    available: 0,
   });
 
-  const [hadirRef, hadirCount] = useCountUpInView(125, 2000);
+  const [hadirRef, hadirCount] = useCountUpInView(data?.available, 2000);
 
-  const [tidakHadirRef, tidakHadirCount] = useCountUpInView(18, 2000);
+  const [tidakHadirRef, tidakHadirCount] = useCountUpInView(
+    data?.unavailable,
+    2000,
+  );
+
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log(form);
-
     // hit api disini
+    addComment(form)
+      .then((res) => {
+        const { available } = res.data;
+        toast.success(
+          available === 1
+            ? "Terima kasih atas kehadirannya"
+            : "Terima kasih, doain aja yah",
+        );
+      })
+      .catch((err) => {
+        console.log("ERR : ", err);
+        toast.error("Terjadi kesalahan");
+      })
+      .finally(() => {
+        setIsLoading(false);
+        setSuccessAdd(true);
+        setForm({
+          name: "",
+          comment: "",
+          available: 0,
+        });
+      });
   };
 
   return (
@@ -127,11 +154,11 @@ function Form() {
 
           <textarea
             rows={5}
-            value={form.message}
+            value={form.comment}
             onChange={(e) =>
               setForm({
                 ...form,
-                message: e.target.value,
+                comment: e.target.value,
               })
             }
             placeholder="Tuliskan ucapan Anda di sini..."
@@ -149,20 +176,20 @@ function Form() {
             <label
               className={`flex items-center gap-4 p-5 rounded-[18px] border cursor-pointer transition
               ${
-                form.attendance === "hadir"
+                form.available === "1"
                   ? "border-[#9e0e00] bg-red-50"
                   : "border-gray-200"
               }`}
             >
               <input
                 type="radio"
-                name="attendance"
-                value="hadir"
-                checked={form.attendance === "hadir"}
+                name="available"
+                value={1}
+                checked={form.available === "1"}
                 onChange={(e) =>
                   setForm({
                     ...form,
-                    attendance: e.target.value,
+                    available: e.target.value,
                   })
                 }
                 className="hidden"
@@ -171,12 +198,12 @@ function Form() {
               <div
                 className={`w-5 h-5 rounded-full border-2 flex items-center justify-center
                 ${
-                  form.attendance === "hadir"
+                  form.available === "1"
                     ? "border-[#9e0e00]"
                     : "border-gray-400"
                 }`}
               >
-                {form.attendance === "hadir" && (
+                {form.available === "1" && (
                   <div className="w-2.5 h-2.5 rounded-full bg-[#9e0e00]" />
                 )}
               </div>
@@ -187,20 +214,20 @@ function Form() {
             <label
               className={`flex items-center gap-4 p-5 rounded-[18px] border cursor-pointer transition
               ${
-                form.attendance === "tidak_hadir"
+                form.available === "0"
                   ? "border-[#9e0e00] bg-red-50"
                   : "border-gray-200"
               }`}
             >
               <input
                 type="radio"
-                name="attendance"
-                value="tidak_hadir"
-                checked={form.attendance === "tidak_hadir"}
+                name="available"
+                value={0}
+                checked={form.available === "0"}
                 onChange={(e) =>
                   setForm({
                     ...form,
-                    attendance: e.target.value,
+                    available: e.target.value,
                   })
                 }
                 className="hidden"
@@ -209,12 +236,12 @@ function Form() {
               <div
                 className={`w-5 h-5 rounded-full border-2 flex items-center justify-center
                 ${
-                  form.attendance === "tidak_hadir"
+                  form.available === "0"
                     ? "border-[#9e0e00]"
                     : "border-gray-400"
                 }`}
               >
-                {form.attendance === "tidak_hadir" && (
+                {form.available === "0" && (
                   <div className="w-2.5 h-2.5 rounded-full bg-[#9e0e00]" />
                 )}
               </div>
@@ -227,6 +254,9 @@ function Form() {
         </div>
 
         <motion.button
+          disabled={
+            form.name.length === 0 || form.comment.length === 0 || isLoading
+          }
           whileHover={{
             scale: 1.02,
           }}

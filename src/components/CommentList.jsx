@@ -1,44 +1,21 @@
 import { motion } from "framer-motion";
 
-const comments = [
-  {
-    id: 1,
-    name: "Ayu cantik",
-    attendance: "hadir",
-    date: "30 Mei 2026 pukul 14.49",
-    message: "Semoga lancar sampai hari H yaaaaa kaowkoawkokawokaow",
-  },
-  {
-    id: 2,
-    name: "dijah",
-    attendance: "hadir",
-    date: "30 Mei 2026 pukul 14.10",
-    message: "selamatt ya sayanggg🥰🥰",
-  },
-  {
-    id: 3,
-    name: "dijah",
-    attendance: "hadir",
-    date: "30 Mei 2026 pukul 14.10",
-    message: "selamatt ya sayanggg🥰🥰",
-  },
-  {
-    id: 4,
-    name: "dijah",
-    attendance: "hadir",
-    date: "30 Mei 2026 pukul 14.10",
-    message: "selamatt ya sayanggg🥰🥰",
-  },
-  {
-    id: 5,
-    name: "dijah",
-    attendance: "hadir",
-    date: "30 Mei 2026 pukul 14.10",
-    message: "selamatt ya sayanggg🥰🥰",
-  },
-];
+const formatDate = (isoString) => {
+  const date = new Date(isoString);
+  return date.toLocaleString("id-ID", {
+    timeZone: "Asia/Jakarta",
+    day: "numeric",
+    month: "short", // "Mei" bukan "Mei" panjang
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  });
+};
 
-function CommentList() {
+// Output: 30 Mei 2026, 14.10.00
+
+function CommentList({ data }) {
   return (
     <motion.div
       initial={{
@@ -52,12 +29,14 @@ function CommentList() {
       viewport={{
         once: true,
       }}
-      className="bg-white rounded-[30px] shadow-md p-8 mx-5 mb-10 mt-5"
+      className="bg-white rounded-[30px] shadow-md p-3 mx-5 mb-10 mt-5"
     >
-      <h2 className="text-2xl font-bold text-[#6b2222] mb-6">Daftar Ucapan</h2>
+      <h2 className="text-2xl font-bold text-[#6b2222] mb-6 mt-3 ml-3">
+        Daftar Ucapan
+      </h2>
 
       <div className="pr-2 space-y-4 overflow-y-auto max-h-125">
-        {comments.map((item, index) => (
+        {data?.map((item, index) => (
           <motion.div
             key={item.id}
             initial={{
@@ -77,21 +56,21 @@ function CommentList() {
               <div>
                 <h3 className="text-xl font-bold text-gray-800">{item.name}</h3>
 
-                <p className="mt-1 text-sm text-gray-400">{item.date}</p>
+                <p className="mt-1 text-sm text-gray-400">
+                  {formatDate(item.created_at)}
+                </p>
               </div>
 
               <span
-                className={`font-semibold ${
-                  item.attendance === "hadir"
-                    ? "text-green-500"
-                    : "text-red-500"
+                className={`font-semibold text-sm ${
+                  item.available === 1 ? "text-green-500" : "text-red-500"
                 }`}
               >
-                {item.attendance === "hadir" ? "✓ Hadir" : "✗ Tidak Hadir"}
+                {item.available === 1 ? "✓ Hadir" : "✗ Tidak Hadir"}
               </span>
             </div>
 
-            <p className="mt-4 text-gray-700">{item.message}</p>
+            <p className="mt-4 text-gray-700">{item.comment}</p>
           </motion.div>
         ))}
       </div>
