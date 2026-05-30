@@ -267,7 +267,7 @@ function Form({ data, setSuccessAdd }) {
           type="submit"
           className="w-full h-16 bg-[#9e0e00] text-white font-bold text-md rounded-[18px] shadow-md"
         >
-          Kirim Ucapan
+          {isLoading ? "Kirim Ucapan" : "Loading"}
         </motion.button>
       </form>
     </motion.section>
