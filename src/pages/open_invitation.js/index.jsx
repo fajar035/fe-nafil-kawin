@@ -31,20 +31,20 @@ function Index() {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-black">
-      <div className="w-full max-w-[420px] h-[100vh] bg-white shadow-2xl overflow-hidden">
+      <div className="w-full h-screen overflow-hidden bg-white shadow-2xl max-w-105">
         <div className="flex flex-col items-center justify-center h-full gap-6 p-4 bg-white">
           {/* SECTION */}
           <div className="relative w-full mb-4">
             <img
               src={Pernik2}
               alt="pernik2"
-              className="absolute top-[-47px] left-2 w-20 rotate-[15deg]"
+              className="absolute -top-11.75 left-2 w-20 rotate-15"
             />
 
             <img
               src={Pernik3}
               alt="pernik3"
-              className="absolute top-[98px] right-[37px] w-15 rotate-[7deg]"
+              className="absolute top-24.5 right-9.25 w-15 rotate-[7deg]"
             />
 
             {/* ===== TITLE (FIXED TYPOGRAPHY LAYOUT) ===== */}
@@ -70,7 +70,7 @@ function Index() {
               />
 
               {/* NAFIL (BELAKANG) */}
-              <div className="absolute top-[-15px] left-[52.9px] w-35 h-30 overflow-hidden z-0">
+              <div className="absolute -top-3.75 left-[52.9px] w-35 h-30 overflow-hidden z-0">
                 <img
                   src={nafil}
                   alt="nafil"
@@ -79,7 +79,7 @@ function Index() {
               </div>
 
               {/* AYU (BELAKANG JUGA) */}
-              <div className="absolute top-[-17px] right-[87px] w-35 h-30 overflow-hidden z-0">
+              <div className="absolute -top-4.25 right-21.75 w-35 h-30 overflow-hidden z-0">
                 <img
                   src={ayu}
                   alt="ayu"

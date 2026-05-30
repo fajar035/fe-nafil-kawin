@@ -7,3 +7,9 @@ export const textSurah = "QS Ar-Rum: 21";
 export const textSalam = "Assalamu'alaikum Warahmatullahi Wabarakatuh";
 export const textPembuka = `Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk menghadiri pernikahan kami…`;
 export const textLier = "Bride & Groom";
+export const textAyu = "Ayu Lestari, Amd.Keb.";
+export const textNafil = "Nafil Maulana, S.Kep., Ners.";
+export const textBinAyu =
+  "Putri dari Bapak H. Oman Suwardi (Alm) dan Ibu Didah";
+export const textBinNafil =
+  "Putra dari Bapak Rochim Budiharyono dan Ibu Siti Komariah (Alm)";

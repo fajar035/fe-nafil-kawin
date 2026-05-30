@@ -4,8 +4,8 @@ import OpenInvitation from "../open_invitation.js/index.jsx";
 function Index({ page }) {
   return (
     <>
-      <div className="min-h-screen bg-black flex items-center justify-center">
-        <div className="w-full max-w-[420px] h-[100vh] bg-white shadow-2xl overflow-hidden">
+      <div className="flex items-center justify-center min-h-screen bg-white">
+        <div className="w-full overflow-hidden bg-white shadow-2xl max-w-105">
           {page === "home" && <Home />}
           {page === "open-invitation" && <OpenInvitation />}
         </div>
