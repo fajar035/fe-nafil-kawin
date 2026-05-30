@@ -22,6 +22,7 @@ function Form({ data, setSuccessAdd }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setIsLoading(false);
 
     // hit api disini
     addComment(form)
@@ -38,7 +39,7 @@ function Form({ data, setSuccessAdd }) {
         toast.error("Terjadi kesalahan");
       })
       .finally(() => {
-        setIsLoading(false);
+        setIsLoading(true);
         setSuccessAdd(true);
         setForm({
           name: "",
@@ -255,7 +256,7 @@ function Form({ data, setSuccessAdd }) {
 
         <motion.button
           disabled={
-            form.name.length === 0 || form.comment.length === 0 || isLoading
+            form.name.length === 0 || form.comment.length === 0 || !isLoading
           }
           whileHover={{
             scale: 1.02,
