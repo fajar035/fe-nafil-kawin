@@ -55,17 +55,17 @@ function Index() {
     };
   }, []);
 
-  useEffect(() => {
-    const isRefreshing = sessionStorage.getItem("isRefreshing");
+  //   useEffect(() => {
+  //     const isRefreshing = sessionStorage.getItem("isRefreshing");
 
-    if (isRefreshing) {
-      sessionStorage.removeItem("isRefreshing");
+  //     if (isRefreshing) {
+  //       sessionStorage.removeItem("isRefreshing");
 
-      navigate("/open-invitation", {
-        replace: true,
-      });
-    }
-  }, []);
+  //       navigate("/open-invitation", {
+  //         replace: true,
+  //       });
+  //     }
+  //   }, []);
 
   return (
     <div className="w-full min-h-screen py-20 bg-[#f8f8f8] shadow-2xl max-w-105">
@@ -132,7 +132,7 @@ function Index() {
           <TextAnimated text={textName} speed={0.04} duration={0.3} />
         </p>
 
-        <p className="text-center">
+        <p className="">
           <TextAnimated text={textAyat} speed={0.005} />
         </p>
 
