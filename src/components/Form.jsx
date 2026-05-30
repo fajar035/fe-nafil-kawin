@@ -65,7 +65,7 @@ function Form({ data, setSuccessAdd }) {
       transition={{
         duration: 0.7,
       }}
-      className="w-full px-6 py-5 bg-[#f8f8f8]"
+      className="w-full py-5 bg-[#f8f8f8]"
     >
       {/* Counter */}
       <div className="grid grid-cols-2 gap-5 mb-8">
