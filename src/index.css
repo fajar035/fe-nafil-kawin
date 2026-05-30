@@ -1,5 +1,18 @@
 @import "tailwindcss";
 
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #9e0e00;
+  border-radius: 999px;
+}
+
 * {
   font-family: "ProvidenceSans", sans-serif !important;
 }
@@ -9,4 +22,10 @@
   src: url("/src/assets/fonts/ProvidenceSans-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
+}
+
+@font-face {
+  font-family: "ProvidenceSans";
+  src: url("/src/assets/fonts/ProvidenceSans-Bold.otf") format("truetype");
+  font-weight: 900;
 }
